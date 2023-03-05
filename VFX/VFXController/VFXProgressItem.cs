@@ -5,9 +5,6 @@ using UnityEngine;
 public class VFXProgressItem
 {
     public string index;
-    public bool isStart;
-    public bool isStay;
-    public bool isEnd;
     public Transform area;
     public List<VFXInteractValue> interactValues;
 
@@ -24,12 +21,12 @@ public class VFXProgressItem
             {
                 case VFXPropertyType.Float:
                     interactValue.ApplyFloat(traits,
-                        ((VFXFloat)interactValue.vfxValue).value * interactValue.deltaSpeed);
+                        ((VFXFloat)interactValue.vfxValue).value);
                     continue;
                 case VFXPropertyType.Int:
                     interactValue.ApplyInt(traits,
-                        ((VFXInt)interactValue.vfxValue).value * interactValue.deltaSpeed > 0
-                            ? (int)(interactValue.deltaSpeed * ((VFXInt)interactValue.vfxValue).value)
+                        ((VFXInt)interactValue.vfxValue).value > 0
+                            ? ((VFXInt)interactValue.vfxValue).value
                             : 1);
                     continue;
                 case VFXPropertyType.Bool:
@@ -37,13 +34,13 @@ public class VFXProgressItem
                     continue;
                 case VFXPropertyType.Vector2:
                     interactValue.ApplyVector2(traits, interactValue.axis,
-                        ((VFXVector2)interactValue.vfxValue).value * interactValue.deltaSpeed);
+                        ((VFXVector2)interactValue.vfxValue).value);
                     continue;
                 case VFXPropertyType.Vector3:
                     Vector3 value = ((VFXVector3)interactValue.vfxValue).value;
                     if (interactValue.isScale)
-                        interactValue.ApplyScale(traits, area, interactValue.axis, value * interactValue.deltaSpeed);
-                    else interactValue.ApplyVector3(traits, interactValue.axis, value * interactValue.deltaSpeed);
+                        interactValue.ApplyScale(traits, interactValue.axis, value);
+                    else interactValue.ApplyVector3(traits, interactValue.axis, value);
                     continue;
                 case VFXPropertyType.String:
                     interactValue.ApplyString(traits, VFXStepType.Current);

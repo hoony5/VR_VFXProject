@@ -44,7 +44,8 @@ public class VFXInteractValueContainerEditor : Editor
        // base.OnInspectorGUI();
         serializedObject.Update();
         EditorGUILayout.Space(10);
-        EditorGUILayout.PropertyField(_vfxProperty, _vfxContent);
+        if(_vfxProperty is not null)
+            EditorGUILayout.PropertyField(_vfxProperty, _vfxContent);
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("For Add VFX Interaction Item Area");
         if (GUILayout.Button("Get Exposed Properties"))
@@ -68,12 +69,13 @@ public class VFXInteractValueContainerEditor : Editor
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("For Add Progress Scenario Item Area");
-        EditorGUILayout.PropertyField(_vfxProgressScenarioProperty, _vfxProgressScenarioContent);
+        if(_vfxProgressScenarioProperty is not null)
+            EditorGUILayout.PropertyField(_vfxProgressScenarioProperty, _vfxProgressScenarioContent);
         EditorGUILayout.Space(10);
-        EditorGUILayout.PropertyField(_vfxProgressScenarioKeyProperty, _vfxProgressScenarioKeyContent);
+        if(_vfxProgressScenarioKeyProperty is not null)
+            EditorGUILayout.PropertyField(_vfxProgressScenarioKeyProperty, _vfxProgressScenarioKeyContent);
         EditorGUILayout.Space(10);
         AddScenarioProperty();
-        serializedObject.ApplyModifiedProperties();
     }
 
     private bool GetExposedPropertiesInfo()
@@ -223,7 +225,7 @@ public class VFXInteractValueContainerEditor : Editor
             {
                 interactValue.vfxValue = new VFXVector3(exposedProperty, Vector3.zero);
                 interactValue.propertyType = VFXPropertyType.Vector3;
-            }
+            } 
 
             if (_selectVFXPropertyType == typeof(bool))
             {

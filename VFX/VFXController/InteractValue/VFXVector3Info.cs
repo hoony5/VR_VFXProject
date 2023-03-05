@@ -120,7 +120,6 @@ public sealed class VFXVector3Info : VFXValueInfo
     public void AddXZ(Vector3 value)
     {
         vfxVector3.value += new Vector3(value.x, 0, value.z);
-        
         if (IsMaxValue(Axis.XZ))
             vfxVector3.value = new Vector3(max.x, vfxVector3.value.y, max.z);
         if(IsMinValue(Axis.XZ))

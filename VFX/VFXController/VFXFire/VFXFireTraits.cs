@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 #if UNITY_EDITOR
 using NaughtyAttributes;
 #endif
@@ -17,6 +18,7 @@ public sealed class VFXFireTraits : VFXTraits
     [SerializeField, Range(0, 1.0f)] private float normalDifficulty = 0.6f;
     [SerializeField, Range(0, 1.0f)] private float easyDifficulty = 1f;
     [Space(10)]
+    public UnityEvent<float> onInteract;
     [SerializeField] private VFXFloatInfo mainParticleInfo;
 
 #if UNITY_EDITOR
@@ -28,7 +30,7 @@ public sealed class VFXFireTraits : VFXTraits
         {
             if (item.isMainParticle)
             {
-              //  mainParticleInfo = valueInfo.TryGetFloat(item.vfxValue.exposedProperty, out VFXFloatInfo info) ? info : null;
+                mainParticleInfo = valueInfo.TryGetFloat(item.vfxValue.displayName, out VFXFloatInfo info) ? info : null;
                 break;
             }
         }
@@ -65,7 +67,7 @@ public sealed class VFXFireTraits : VFXTraits
         return true;
     }
     // for VFXColliderProxy Event (onStayTrigger)
-    public void TryProxyTraitsRecvFloat(VFXInteractor interactor)
+    public void TryProxyTraitsRecvFloat(float damage)
     {
         if (IsReset)
         {
@@ -73,7 +75,7 @@ public sealed class VFXFireTraits : VFXTraits
             return;
         }
 
-        _receiveValue = ((VFXNozzleProxy)interactor)?.damage ?? 0;
+        _receiveValue = damage;
         CheckFireScaleType();
         UpdateScenarios();
     }
@@ -145,7 +147,7 @@ public sealed class VFXFireTraits : VFXTraits
                     result.ApplyVector2(this, result.axis, Vector2.one * (GetDifficulty() * _receiveValue));
                     continue;
                 case VFXPropertyType.Vector3:
-                    if (result.isScale) result.ApplyScale(this, transform ,result.axis,  Vector3.one * (GetDifficulty() * _receiveValue));
+                    if (result.isScale) result.ApplyScale(this ,result.axis,  Vector3.one * (GetDifficulty() * _receiveValue));
                     else result.ApplyVector3(this,result.axis, Vector3.one * (GetDifficulty() * _receiveValue));
                     continue;
                 default:

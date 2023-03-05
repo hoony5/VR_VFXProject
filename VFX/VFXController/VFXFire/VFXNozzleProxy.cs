@@ -8,5 +8,6 @@ public class VFXNozzleProxy : VFXInteractor
         if(target is not VFXFireTraits fireTraits || !fireTraits.IsValidate(interactibleFireType)) return;
         
         interactOnStart = fireTraits.IsReceivedFloat(damage);
+        fireTraits.onInteract?.Invoke(damage);
     }
 }

@@ -9,7 +9,6 @@ public class VFXInteractValueContainer : MonoBehaviour
     private const int Capacity = 128;
 
     public VisualEffect vfx;
-    [SerializeField] private VFXProgressScenario vfxProgressScenario;
 #if UNITY_EDITOR
     [SerializeField] public string scnarioKey;
     public bool _loadSuccess;

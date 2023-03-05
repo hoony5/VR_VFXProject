@@ -20,7 +20,7 @@ public abstract class VFXTraits : MonoBehaviour
        controller.StartPlay(this);
     }
 #if UNITY_EDITOR
-   [Button("Caching Property's Values")]
+   [Button("Caching Property's Values : OnStart")]
 #endif
    private void CachePropertyValues()
    {

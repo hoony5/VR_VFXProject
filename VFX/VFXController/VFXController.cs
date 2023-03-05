@@ -273,7 +273,6 @@ public class VFXController : MonoBehaviour
     {
         if (!valueInfo.TryGetVector3(property, out VFXVector3Info result))
             return false;
-
         switch (axis)
         {
             case Axis.X:
@@ -300,7 +299,6 @@ public class VFXController : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
         }
-
         vfx.SetVector3(property, result.Value);
         return true;
     }

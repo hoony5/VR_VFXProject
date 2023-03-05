@@ -6,6 +6,7 @@ public class VFXInteractValue
     // for editor work flow
     public string displayName;
     public bool isMainParticle;
+    public Transform vfxZone;
     [SerializeReference] public VFXValue vfxValue;
     [SerializeField] public VFXPropertyType propertyType;
     // Float/Int
@@ -43,16 +44,16 @@ public class VFXInteractValue
     public void ApplyVector2(VFXTraits traits , Axis axis, Vector2 value)
     {
         VFXVector2 scenarioItem = vfxValue as VFXVector2;
-        traits.controller.AddVector2(traits.localVFX, traits.valueInfo, vfxValue.displayName,axis, value + scenarioItem.value);
+        traits.controller.AddVector2(traits.localVFX, traits.valueInfo, vfxValue.displayName,axis, scenarioItem.value * (value.magnitude * deltaSpeed));
     }
     public void ApplyVector3(VFXTraits traits, Axis axis, Vector3 value)
     {
         VFXVector3 scenarioItem = vfxValue as VFXVector3;
-        traits.controller.AddVector3(traits.localVFX, traits.valueInfo, vfxValue.displayName,axis, value + scenarioItem.value);
+        traits.controller.AddVector3(traits.localVFX, traits.valueInfo, vfxValue.displayName,axis, scenarioItem.value * (value.magnitude * deltaSpeed));
     }
-    public void ApplyScale(VFXTraits traits,Transform transform, Axis axis, Vector3 value)
+    public void ApplyScale(VFXTraits traits, Axis axis, Vector3 value )
     {
         VFXVector3 scenarioItem = vfxValue as VFXVector3;
-        traits.controller.AddTransformScale(transform, axis, value + scenarioItem.value);
+        traits.controller.AddTransformScale(vfxZone, axis, scenarioItem.value * (value.magnitude * deltaSpeed));
     }
 }
